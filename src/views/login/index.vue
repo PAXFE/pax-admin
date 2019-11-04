@@ -3,10 +3,10 @@
   <el-container class="login-container">
     <el-header class="page-header">
       <img src="@/assets/images/logo_text.png" alt="logo">
-<!--      <div class="logo-wrapper">-->
-<!--        <img src="@/assets/images/logo.png" alt="logo">-->
-<!--        <p><i>{{title}}</i></p>-->
-<!--      </div>-->
+      <!--      <div class="logo-wrapper">-->
+      <!--        <img src="@/assets/images/logo.png" alt="logo">-->
+      <!--        <p><i>{{title}}</i></p>-->
+      <!--      </div>-->
       <p>服务热线：023-67904081</p>
     </el-header>
     <el-main class="page-content">
@@ -50,12 +50,12 @@
                 </el-input>
               </el-form-item>
             </el-tooltip>
-<!--            <el-form-item>-->
-<!--              <div class="captcha-wrapper">-->
-<!--                <el-input v-model="loginForm.verifyCode" placeholder="验证码" class="captcha-input"></el-input>-->
-<!--                <img src="http://192.168.16.102:27081/cms/user/createRandomCode?1570849306218" alt="captcha">-->
-<!--              </div>-->
-<!--            </el-form-item>-->
+            <!--            <el-form-item>-->
+            <!--              <div class="captcha-wrapper">-->
+            <!--                <el-input v-model="loginForm.verifyCode" placeholder="验证码" class="captcha-input"></el-input>-->
+            <!--                <img src="http://192.168.16.102:27081/cms/user/createRandomCode?1570849306218" alt="captcha">-->
+            <!--              </div>-->
+            <!--            </el-form-item>-->
             <el-form-item>
               <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
             </el-form-item>
@@ -70,12 +70,9 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
-import SocialSign from './components/SocialSignin'
 
 export default {
   name: 'Login',
-  components: { SocialSign },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (value.length === 0) {
@@ -92,7 +89,7 @@ export default {
       }
     }
     return {
-      title: 'MassLink-MQ',
+      title: 'pax-admin',
       loginForm: {
         username: 'admin',
         password: '123456'
@@ -162,7 +159,7 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm)
+          this.$store.dispatch('user/Login', this.loginForm)
             .then(() => {
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false
@@ -342,8 +339,6 @@ $light_gray:#eee;
   width: 100%;
   /*background-color: $bg;*/
   overflow: hidden;
-
-
 
   .tips {
     font-size: 14px;

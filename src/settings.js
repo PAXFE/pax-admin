@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'MassLink-MQ',
+  title: 'pax-admin',
 
   /**
    * @type {boolean} true | false
@@ -49,5 +49,12 @@ module.exports = {
    * The default is only used in the production env
    * If you want to also use it in dev, you can pass ['production', 'development']
    */
-  errorLog: 'production'
+  errorLog: 'production',
+
+  // vue-ls options
+  storageOptions: {
+    namespace: 'pro__', // key prefix
+    name: 'ls', // name variable Vue.[ls] or this.[$ls],
+    storage: 'local' // storage name session, local, memory
+  }
 }

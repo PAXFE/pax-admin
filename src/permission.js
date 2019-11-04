@@ -1,10 +1,12 @@
+import Vue from 'vue'
 import router from './router'
 import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import { getToken } from '@/utils/auth' // get token from cookie
+// import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
+// import Vue from "vue/types/vue";
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -18,7 +20,7 @@ router.beforeEach(async(to, from, next) => {
   document.title = getPageTitle(to.meta.title)
 
   // determine whether the user has logged in
-  const hasToken = getToken()
+  const hasToken = Vue.ls.get('TOKEN')
 
   if (hasToken) {
     if (to.path === '/login') {
@@ -32,10 +34,9 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
-          // get user info
-          // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
-          const { roleId } = await store.dispatch('user/getUserInfo')
-          const roles = [roleId]
+          // 获取用户信息
+          // 注意: roles 必须是个数组! 比如: ['admin'] 或者 ['developer','editor']
+          const { roles } = await store.dispatch('user/GetUserInfo')
 
           // generate accessible routes map based on roles
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles)

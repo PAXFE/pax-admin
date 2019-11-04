@@ -1,5 +1,6 @@
-import { login, logout, getUserInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import Vue from 'vue'
+import { login, logout, getUserInfo, getUserPermission } from '@/api/user'
+import { getToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
@@ -34,13 +35,14 @@ const mutations = {
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
+  Login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { result } = response
         commit('SET_TOKEN', result.token)
-        setToken(result.token)
+        Vue.ls.set('TOKEN', result.token, 7 * 24 * 60 * 60 * 1000)
+        // setToken(result.token)
         resolve()
       }).catch(error => {
         reject(error)
@@ -49,7 +51,7 @@ const actions = {
   },
 
   // get user info
-  getUserInfo({ commit, state }) {
+  GetUserInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getUserInfo(state.token).then(response => {
         const { result } = response
@@ -68,6 +70,38 @@ const actions = {
         commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_USERID', userId)
+        // commit('SET_AVATAR', avatar)
+        // commit('SET_INTRODUCTION', introduction)
+        resolve(result)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  // 获取用户权限
+  GetUserPermission({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      getUserPermission(state.token).then(response => {
+        const { result } = response
+
+        if (!result) {
+          reject('Verification failed, please Login again.')
+        }
+
+        const { menu, auth } = result
+        // roles must be a non-empty array
+        if (menu === null) {
+          reject('GetUserPermission: menu must be a non-null array!')
+        }
+
+        if (auth === null) {
+          reject('GetUserPermission: auth must be a non-null array!')
+        }
+
+        commit('SET_ROLES', auth)
+        commit('SET_NAME', name)
+        // commit('SET_USERID', userId)
         // commit('SET_AVATAR', avatar)
         // commit('SET_INTRODUCTION', introduction)
         resolve(result)
@@ -113,7 +147,8 @@ const actions = {
       const token = role + '-token'
 
       commit('SET_TOKEN', token)
-      setToken(token)
+      // setToken(token)
+      Vue.ls.set('TOKEN', token, 7 * 24 * 60 * 60 * 1000)
 
       const { roles } = await dispatch('getUserInfo')
 

@@ -16,6 +16,15 @@ export function getUserInfo() {
   })
 }
 
+// getUserPermission
+export function getUserPermission(token) {
+  return request({
+    url: `/user/getUserPermission`,
+    method: 'get',
+    params: { token }
+  })
+}
+
 export function logout() {
   return request({
     url: '/user/logout',

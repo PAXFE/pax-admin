@@ -45,7 +45,7 @@ export default {
       requestUrl,
       accessId,
       accessKey
-    } = await this.$store.dispatch('user/getUserInfo')
+    } = await this.$store.dispatch('user/GetUserInfo')
     this.userInfo.requestUrl = requestUrl
     this.userInfo.accessId = accessId
     this.userInfo.accessKey = accessKey
