@@ -1,10 +1,11 @@
 import Vue from 'vue'
-import { login, logout, getUserInfo, getUserPermission } from '@/api/user'
-import { getToken, removeToken } from '@/utils/auth'
+import { login, logout, getUserInfo } from '@/api/user'
+import { getToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
+  userInfo: {},
   name: '',
   userId: '',
   avatar: '',
@@ -15,6 +16,9 @@ const state = {
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_USERINFO: (state, userInfo) => {
+    state.userInfo = userInfo
   },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
@@ -43,6 +47,7 @@ const actions = {
         commit('SET_TOKEN', result.token)
         Vue.ls.set('TOKEN', result.token, 7 * 24 * 60 * 60 * 1000)
         // setToken(result.token)
+        setUserInfo(result.userInfo, commit)
         resolve()
       }).catch(error => {
         reject(error)
@@ -56,51 +61,21 @@ const actions = {
       getUserInfo(state.token).then(response => {
         const { result } = response
 
-        if (!result) {
-          reject('Verification failed, please Login again.')
-        }
+        setUserInfo(result, commit)
 
-        const { roleId, name, userId } = result
-        // roles must be a non-empty array
-        if (roleId === null) {
-          reject('getUserInfo: roles must be a non-null array!')
-        }
-        const roles = [roleId]
-
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_USERID', userId)
-        // commit('SET_AVATAR', avatar)
-        // commit('SET_INTRODUCTION', introduction)
-        resolve(result)
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
-
-  // 获取用户权限
-  GetUserPermission({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getUserPermission(state.token).then(response => {
-        const { result } = response
-
-        if (!result) {
-          reject('Verification failed, please Login again.')
-        }
-
-        const { menu, auth } = result
-        // roles must be a non-empty array
-        if (menu === null) {
-          reject('GetUserPermission: menu must be a non-null array!')
-        }
-
-        if (auth === null) {
-          reject('GetUserPermission: auth must be a non-null array!')
-        }
-
-        commit('SET_ROLES', auth)
-        commit('SET_NAME', name)
+        // if (!result) {
+        //   reject('Verification failed, please Login again.')
+        // }
+        //
+        // const { roleId, name, userId } = result
+        // // roles must be a non-empty array
+        // if (roleId === null) {
+        //   reject('getUserInfo: roles must be a non-null array!')
+        // }
+        // const roles = [roleId]
+        //
+        // commit('SET_ROLES', roles)
+        // commit('SET_NAME', name)
         // commit('SET_USERID', userId)
         // commit('SET_AVATAR', avatar)
         // commit('SET_INTRODUCTION', introduction)
@@ -112,20 +87,27 @@ const actions = {
   },
 
   // user logout
-  logout({ commit, state, dispatch }) {
+  Logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         commit('SET_TOKEN', '')
+        commit('SET_USERINFO', {})
         commit('SET_ROLES', [])
-        removeToken()
+        Vue.ls.remove('TOKEN')
+        // removeToken()
         resetRouter()
 
         // reset visited views and cached views
         // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
         dispatch('tagsView/delAllViews', null, { root: true })
-
+        console.log(state.roles)
         resolve()
       }).catch(error => {
+        commit('SET_TOKEN', '')
+        commit('SET_USERINFO', {})
+        commit('SET_ROLES', [])
+        Vue.ls.remove('TOKEN')
+        resetRouter()
         reject(error)
       })
     })
@@ -136,7 +118,9 @@ const actions = {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
-      removeToken()
+      commit('SET_USERINFO', {})
+      Vue.ls.remove('TOKEN')
+      // removeToken()
       resolve()
     })
   },
@@ -150,7 +134,7 @@ const actions = {
       // setToken(token)
       Vue.ls.set('TOKEN', token, 7 * 24 * 60 * 60 * 1000)
 
-      const { roles } = await dispatch('getUserInfo')
+      const { roles } = await dispatch('GetUserInfo')
 
       resetRouter()
 
@@ -166,6 +150,16 @@ const actions = {
       resolve()
     })
   }
+}
+
+export const setUserInfo = (res, commit) => {
+  // 如果没有任何权限，则赋予一个默认的权限，避免请求死循环
+  if (res.roles.length === 0) {
+    commit('SET_ROLES', ['ROLE_SYSTEM_DEFAULT'])
+  } else {
+    commit('SET_ROLES', res.roles)
+  }
+  commit('SET_USERINFO', res)
 }
 
 export default {

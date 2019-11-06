@@ -95,6 +95,31 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/application-mgt',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/application-mgt/index'),
+        name: 'ApplicationMgt',
+        meta: { title: '应用管理', icon: 'application', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/icon',
+    component: Layout,
+    hidden: false,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icons/index'),
+        name: 'Icons',
+        meta: { title: 'Icons', icon: 'icon', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/profile',
     component: Layout,
     redirect: '/profile/index',
@@ -124,66 +149,6 @@ export const asyncRoutes = [
         component: () => import('@/views/application-mgt/index'),
         name: 'ApplicationMgt',
         meta: { title: '应用管理', icon: 'application', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/device-mgt',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/device-mgt/index'),
-        name: 'DeviceMgt',
-        meta: { title: '设备管理', icon: 'device', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/data-analysis',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/data-analysis/index'),
-        name: 'DataAnalysis',
-        meta: { title: '数据分析', icon: 'dataanalysis', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/user-mgt',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/user-mgt/index'),
-        name: 'UserMgt',
-        meta: { title: '用户管理', icon: 'usermanagement', noCache: true, roles: [1] }
-      }
-    ]
-  },
-  {
-    path: '/developer-tool',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/developer-tool/index'),
-        name: 'DeveloperTool',
-        meta: { title: '开发者工具', icon: 'devtool', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/developer-info',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/developer-info/index'),
-        name: 'DeveloperInfo',
-        meta: { title: '开发者信息', icon: 'developer', noCache: true, roles: [0] }
       }
     ]
   },

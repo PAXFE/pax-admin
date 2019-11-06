@@ -16,62 +16,10 @@ export function getUserInfo() {
   })
 }
 
-// getUserPermission
-export function getUserPermission(token) {
-  return request({
-    url: `/user/getUserPermission`,
-    method: 'get',
-    params: { token }
-  })
-}
-
 export function logout() {
   return request({
     url: '/user/logout',
     method: 'post'
-  })
-}
-
-// 列表查询用户
-export function fetchUser(query) {
-  return request({
-    url: '/user',
-    method: 'get',
-    params: query
-  })
-}
-
-// 创建用户
-export function addUser(data) {
-  return request({
-    url: '/user/create',
-    method: 'post',
-    data: data
-  })
-}
-
-// 修改用户
-export function updateUser(data) {
-  return request({
-    url: `/user`,
-    method: 'put',
-    data: data
-  })
-}
-
-// 删除用户
-export function deleteUser(userId) {
-  return request({
-    url: `/user/${userId}`,
-    method: 'delete'
-  })
-}
-
-// 重置用户accessKey
-export function resetAccessKey() {
-  return request({
-    url: '/user/resetAccessKey',
-    method: 'get'
   })
 }
 
@@ -81,5 +29,57 @@ export function updatePassword(data) {
     url: `/user`,
     method: 'patch',
     data: data
+  })
+}
+
+export function add(data) {
+  return request({
+    url: '/users',
+    method: 'post',
+    data
+  })
+}
+
+export function downloadUser(params) {
+  return request({
+    url: '/users/download',
+    method: 'get',
+    params,
+    responseType: 'blob'
+  })
+}
+
+export function del(id) {
+  return request({
+    url: '/users/' + id,
+    method: 'delete'
+  })
+}
+
+export function edit(data) {
+  return request({
+    url: '/users',
+    method: 'put',
+    data
+  })
+}
+
+export function updatePass(user) {
+  const data = {
+    oldPass: user.oldPass,
+    newPass: user.newPass
+  }
+  return request({
+    url: '/users/updatePass/',
+    method: 'post',
+    data
+  })
+}
+
+export function updateEmail(code, data) {
+  return request({
+    url: '/users/updateEmail/' + code,
+    method: 'post',
+    data
   })
 }

@@ -1,5 +1,4 @@
 <script>
-import homePng from '@/assets/images/menu/home.png'
 
 export default {
   name: 'MenuItem',
@@ -20,7 +19,6 @@ export default {
 
     if (icon) {
       vnodes.push(<svg-icon icon-class={icon}/>)
-      // vnodes.push(<img src={homePng}/>)
     }
 
     if (title) {

@@ -3,7 +3,7 @@
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-<!--    <img class="logo" src="@/assets/images/logo.png" alt="logo">-->
+    <!--    <img class="logo" src="@/assets/images/logo.png" alt="logo">-->
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
@@ -20,12 +20,12 @@
       <!-- avatar start -->
       <el-dropdown class="avatar-container right-menu-item hover-effect">
         <div class="avatar-wrapper">
-<!--          <img src="@/assets/images/user2.png" class="user-avatar">-->
+          <!--          <img src="@/assets/images/user2.png" class="user-avatar">-->
           <span class="svg-container">
             <svg-icon icon-class="user4" />
           </span>
-          <p>{{ name }}</p>
-<!--          <i class="el-icon-caret-bottom" />-->
+          <p>{{ userInfo.username }}</p>
+          <!--          <i class="el-icon-caret-bottom" />-->
         </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
@@ -70,7 +70,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'name',
+      'userInfo',
       'sidebar',
       'avatar',
       'device'
@@ -86,7 +86,8 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
-      await this.$store.dispatch('user/logout')
+      await this.$store.dispatch('user/Logout')
+      this.$store.commit('permission/SET_ROUTES', [])
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }

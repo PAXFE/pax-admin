@@ -50,12 +50,12 @@
                 </el-input>
               </el-form-item>
             </el-tooltip>
-            <!--            <el-form-item>-->
-            <!--              <div class="captcha-wrapper">-->
-            <!--                <el-input v-model="loginForm.verifyCode" placeholder="验证码" class="captcha-input"></el-input>-->
-            <!--                <img src="http://192.168.16.102:27081/cms/user/createRandomCode?1570849306218" alt="captcha">-->
-            <!--              </div>-->
-            <!--            </el-form-item>-->
+            <el-form-item>
+              <div class="captcha-wrapper">
+                <el-input v-model="loginForm.verifyCode" placeholder="验证码" class="captcha-input" />
+                <img src="http://192.168.16.102:27081/cms/user/createRandomCode?1570849306218" alt="captcha">
+              </div>
+            </el-form-item>
             <el-form-item>
               <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
             </el-form-item>

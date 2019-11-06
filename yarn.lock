@@ -763,6 +763,20 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@riophae/vue-treeselect@0.0.38":
+  version "0.0.38"
+  resolved "https://registry.yarnpkg.com/@riophae/vue-treeselect/-/vue-treeselect-0.0.38.tgz#13af5dfcd732a9f41fa96f99821108e72666dd4f"
+  integrity sha512-W0VlNUq3e84+J+rfKqi0CWdIbXaQwxKrdMIeNLvD0k5LoNRiBbKgaqLLrUPXNwFqzI8CISly9O+4ROEUnb7SFQ==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    babel-helper-vue-jsx-merge-props "^2.0.3"
+    easings-css "^1.0.0"
+    fuzzysearch "^1.0.3"
+    is-promise "^2.1.0"
+    lodash "^4.0.0"
+    material-colors "^1.2.6"
+    watch-size "^2.0.0"
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -1902,7 +1916,7 @@ babel-generator@^6.18.0, babel-generator@^6.26.0:
     source-map "^0.5.7"
     trim-right "^1.0.1"
 
-babel-helper-vue-jsx-merge-props@^2.0.0:
+babel-helper-vue-jsx-merge-props@^2.0.0, babel-helper-vue-jsx-merge-props@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-2.0.3.tgz#22aebd3b33902328e513293a8e4992b384f9f1b6"
   integrity sha512-gsLiKK7Qrb7zYJNgiXKpXblxbV5ffSwR0f5whkPAaBAR4fhi6bwRZxX9wBlIc5M/v8CCkXUbXZL4N/nSE97cqg==
@@ -3828,6 +3842,11 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
+easings-css@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/easings-css/-/easings-css-1.0.0.tgz#dde569003bb7a4a0c0b77878f5db3e0be5679c81"
+  integrity sha512-7Uq7NdazNfVtr0RNmPAys8it0zKCuaqxJStYKEl72D3j4gbvXhhaM7iWNbqhA4C94ygCye6VuyhzBRQC4szeBg==
+
 easy-stack@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/easy-stack/-/easy-stack-1.0.0.tgz#12c91b3085a37f0baa336e9486eac4bf94e3e788"
@@ -4908,6 +4927,11 @@ fuse.js@3.4.4:
   version "3.4.4"
   resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-3.4.4.tgz#f98f55fcb3b595cf6a3e629c5ffaf10982103e95"
   integrity sha512-pyLQo/1oR5Ywf+a/tY8z4JygnIglmRxVUOiyFAbd11o9keUDpUJSMGRWJngcnkURj30kDHPmhoKY8ChJiz3EpQ==
+
+fuzzysearch@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/fuzzysearch/-/fuzzysearch-1.0.3.tgz#dffc80f6d6b04223f2226aa79dd194231096d008"
+  integrity sha1-3/yA9tawQiPyImqnndGUIxCW0Ag=
 
 g-status@^2.0.2:
   version "2.0.2"
@@ -7230,6 +7254,11 @@ matcher@^1.0.0:
   integrity sha512-+BmqxWIubKTRKNWx/ahnCkk3mG8m7OturVlqq6HiojGJTd5hVYbgZm6WzcYPCoB+KBT4Vd6R7WSRG2OADNaCjg==
   dependencies:
     escape-string-regexp "^1.0.4"
+
+material-colors@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/material-colors/-/material-colors-1.2.6.tgz#6d1958871126992ceecc72f4bcc4d8f010865f46"
+  integrity sha512-6qE4B9deFBIa9YSpOc9O0Sgc43zTeVYbgDT5veRKSlB2+ZuHNoVVxA1L/ckMUayV9Ay9y7Z/SZCLcGteW9i7bg==
 
 math-random@^1.0.1:
   version "1.0.4"
@@ -11452,6 +11481,11 @@ walker@~1.0.5:
   integrity sha1-L3+bj9ENZ3JisYqITijRlhjgKPs=
   dependencies:
     makeerror "1.0.x"
+
+watch-size@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/watch-size/-/watch-size-2.0.0.tgz#096ee28d0365bd7ea03d9c8bf1f2f50a73be1474"
+  integrity sha512-M92R89dNoTPWyCD+HuUEDdhaDnh9jxPGOwlDc0u51jAgmjUvzqaEMynXSr3BaWs+QdHYk4KzibPy1TFtjLmOZQ==
 
 watch@~0.18.0:
   version "0.18.0"

@@ -22,7 +22,7 @@
           <el-col v-else :span="10">
             <el-form :inline="true">
               <el-form-item>
-                <el-input v-model="userInfo.name" placeholder="姓名" size="mini"></el-input>
+                <el-input v-model="userInfo.name" placeholder="姓名" size="mini" />
               </el-form-item>
               <el-form-item>
                 <el-button size="mini" @click="showNameEditForm = false">取消</el-button>
@@ -33,14 +33,14 @@
         </el-row>
         <el-row>
           <el-col :span="2" class="key"><span>电话：</span></el-col>
-          <el-col v-if="!showTelEditForm"  :span="10" class="value">
+          <el-col v-if="!showTelEditForm" :span="10" class="value">
             <span style="margin-right: 30px;">{{ userInfo.tel }}</span>
             <el-button size="mini" icon="el-icon-edit" @click="showTelEditForm = true">修改</el-button>
           </el-col>
           <el-col v-else :span="10">
             <el-form :inline="true">
               <el-form-item>
-                <el-input v-model="userInfo.tel" placeholder="电话" size="mini"></el-input>
+                <el-input v-model="userInfo.tel" placeholder="电话" size="mini" />
               </el-form-item>
               <el-form-item>
                 <el-button size="mini" @click="showTelEditForm = false">取消</el-button>
@@ -49,17 +49,17 @@
             </el-form>
           </el-col>
         </el-row>
-<!--        <el-row>-->
-<!--          <el-col :span="2" class="key"><span>APIUserId：</span></el-col>-->
-<!--          <el-col :span="10" class="value"><span>{{ userInfo.accessId }}</span></el-col>-->
-<!--        </el-row>-->
-<!--        <el-row>-->
-<!--          <el-col :span="2" class="key"><span>APIAccessKey：</span></el-col>-->
-<!--          <el-col :span="10" class="value">-->
-<!--            <span style="margin-right: 30px;">{{ userInfo.accessKey }}</span>-->
-<!--            <el-button size="mini" @click="_resetAccessKey"><svg-icon icon-class="reset" /> 重置</el-button>-->
-<!--          </el-col>-->
-<!--        </el-row>-->
+        <!--        <el-row>-->
+        <!--          <el-col :span="2" class="key"><span>APIUserId：</span></el-col>-->
+        <!--          <el-col :span="10" class="value"><span>{{ userInfo.accessId }}</span></el-col>-->
+        <!--        </el-row>-->
+        <!--        <el-row>-->
+        <!--          <el-col :span="2" class="key"><span>APIAccessKey：</span></el-col>-->
+        <!--          <el-col :span="10" class="value">-->
+        <!--            <span style="margin-right: 30px;">{{ userInfo.accessKey }}</span>-->
+        <!--            <el-button size="mini" @click="_resetAccessKey"><svg-icon icon-class="reset" /> 重置</el-button>-->
+        <!--          </el-col>-->
+        <!--        </el-row>-->
         <el-row>
           <el-col :span="2" class="key"><span>密码：</span></el-col>
           <el-col v-if="!showPwdEditForm" :span="10">
@@ -68,13 +68,13 @@
           <el-col v-else :span="4">
             <el-form>
               <el-form-item>
-                <el-input v-model="passwordForm.oldPassword" type="password" placeholder="旧密码" size="mini"></el-input>
+                <el-input v-model="passwordForm.oldPassword" type="password" placeholder="旧密码" size="mini" />
               </el-form-item>
               <el-form-item>
-                <el-input v-model="passwordForm.newPassword" type="password" placeholder="新密码" size="mini"></el-input>
+                <el-input v-model="passwordForm.newPassword" type="password" placeholder="新密码" size="mini" />
               </el-form-item>
               <el-form-item>
-                <el-input v-model="passwordForm.newPasswordRepeat" type="password" placeholder="确认密码" size="mini"></el-input>
+                <el-input v-model="passwordForm.newPasswordRepeat" type="password" placeholder="确认密码" size="mini" />
               </el-form-item>
               <el-form-item>
                 <el-button size="mini" @click="showPwdEditForm = false">取消</el-button>
@@ -133,7 +133,7 @@ export default {
       roleId,
       accessId,
       accessKey
-    } = await this.$store.dispatch('user/getUserInfo')
+    } = await this.$store.dispatch('user/GetUserInfo')
     this.userInfo.userId = userId
     this.userInfo.loginAccount = loginAccount
     this.userInfo.name = name

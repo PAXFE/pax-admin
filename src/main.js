@@ -21,6 +21,11 @@ import * as filters from './filters' // global filters
 
 import defaultSettings from '@/settings'
 
+import dict from './directive/Dict'
+import permission from './directive/permission'
+
+Vue.use(permission)
+Vue.use(dict)
 Vue.use(Storage, defaultSettings.storageOptions)
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium' // set element-ui default size
