@@ -22,7 +22,7 @@
         <el-table-column prop="label" label="字典标签" />
         <el-table-column prop="value" label="字典值" />
         <el-table-column prop="sort" label="排序" />
-        <el-table-column v-if="checkPermission(['admin','dict:edit','dict:del'])" label="操作" width="130px" align="center" fixed="right">
+        <el-table-column v-if="checkPermission(['admin','dict:edit','dict:del'])" label="操作" width="130px" align="center">
           <template slot-scope="scope">
             <el-button v-permission="['admin','dict:edit']" size="mini" type="text" @click="edit(scope.row)">编辑</el-button>
             <el-popover

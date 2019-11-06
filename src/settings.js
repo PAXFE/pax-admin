@@ -44,6 +44,17 @@ module.exports = {
   sidebarLogo: true,
 
   /**
+   * @type {boolean} true | false
+   * @description Whether show the footer
+   */
+  showFooter: true,
+
+  /**
+   * 底部文字，支持html语法
+   */
+  footerTxt: 'Copyright © 2011-2016 <a href="https://www.pax.com.cn/" target="_blank">百富计算机技术(深圳)有限公司</a> All Rights Reserved.',
+
+  /**
    * @type {string | array} 'production' | ['production', 'development']
    * @description Need show err logs component.
    * The default is only used in the production env

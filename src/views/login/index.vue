@@ -64,7 +64,8 @@
       </el-row>
     </el-main>
     <el-footer class="page-footer">
-      <p>Copyright © 2011-2016 百富计算机技术(深圳)有限公司 All Rights Reserved.</p>
+      <p v-html="$store.state.settings.footerTxt" />
+      <!--      <p>Copyright © 2011-2016 百富计算机技术(深圳)有限公司 All Rights Reserved.</p>-->
     </el-footer>
   </el-container>
 </template>

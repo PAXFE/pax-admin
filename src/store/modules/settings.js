@@ -8,7 +8,9 @@ const {
   sidebarLogo,
   showHeaderSearch,
   showHeaderNotice,
-  showGlobal
+  showGlobal,
+  showFooter,
+  footerTxt
 } = defaultSettings
 
 const state = {
@@ -19,7 +21,9 @@ const state = {
   sidebarLogo: sidebarLogo,
   showHeaderSearch: showHeaderSearch,
   showHeaderNotice: showHeaderNotice,
-  showGlobal: showGlobal
+  showGlobal: showGlobal,
+  showFooter: showFooter,
+  footerTxt: footerTxt
 }
 
 const mutations = {

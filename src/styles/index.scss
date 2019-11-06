@@ -199,3 +199,20 @@ aside {
 .head-container {
   margin-bottom: 20px;
 }
+
+#el-main-footer {
+  background: none repeat scroll 0 0 white;
+  border-top: 1px solid #e7eaec;
+  overflow: hidden;
+  padding: 10px 0;
+  max-height: 40px;
+  font-size: 0.7rem !important;
+  text-align: center;
+  color: #7a8b9a;
+  letter-spacing: 0.8px;
+  font-family: Arial, sans-serif !important;
+  position: fixed;
+  bottom: 0;
+  z-index: 99;
+  width: 100%;
+}
