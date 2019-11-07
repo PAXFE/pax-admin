@@ -3,126 +3,112 @@
     <!--form 组件-->
     <eForm ref="form" :is-add="isAdd" :dicts="dict.user_status" />
     <!-- 页面内容 -->
-    <el-row :gutter="20">
-      <!--部门数据-->
-      <el-col :xs="9" :sm="6" :md="4" :lg="4" :xl="4">
-        <el-card shadow="never">
-          <div class="head-container">
-            <el-input v-model="deptName" clearable placeholder="输入部门名称搜索" prefix-icon="el-icon-search" style="width: 100%;" class="filter-item" @input="getDeptDatas" />
-          </div>
-          <el-tree :data="depts" :props="defaultProps" :expand-on-click-node="false" default-expand-all @node-click="handleNodeClick" />
-        </el-card>
-      </el-col>
-      <!--用户数据-->
-      <el-col :xs="15" :sm="18" :md="20" :lg="20" :xl="20">
-        <el-card shadow="never">
-          <!--工具栏-->
-          <div class="head-container">
-            <!-- 搜索 -->
-            <el-form :inline="true" class="search-form">
-              <el-form-item label="名称/邮箱">
-                <el-input v-model="query.blurry" size="small" clearable placeholder="输入名称或者邮箱搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
-              </el-form-item>
-              <el-form-item label="日期">
-                <el-date-picker
-                  v-model="query.date"
-                  type="daterange"
-                  range-separator=":"
-                  class="el-range-editor--small filter-item"
-                  style="height: 30.5px;width: 220px"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-                />
-              </el-form-item>
-              <el-form-item label="状态">
-                <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" style="width: 90px" @change="toQuery">
-                  <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-                </el-select>
-              </el-form-item>
-              <el-form-item>
-                <el-button class="filter-item" size="small" type="primary" icon="el-icon-search" @click="toQuery">搜索</el-button>
-                <el-button class="filter-item" size="small" type="primary" icon="el-icon-reset" @click="toQuery"><span class="svg-container"><svg-icon icon-class="reset" /></span>重置</el-button>
-              </el-form-item>
-            </el-form>
-            <!-- 新增 -->
-            <div v-permission="['admin','user:add']" style="display: inline-block;margin: 0px 2px;">
-              <el-button
-                class="filter-item"
-                size="small"
-                type="primary"
-                icon="el-icon-plus"
-                @click="add"
-              >新增</el-button>
-            </div>
-            <!-- 导出 -->
-            <div style="display: inline-block;">
-              <el-button
-                :loading="downloadLoading"
-                size="small"
-                class="filter-item"
-                type="primary"
-                icon="el-icon-download"
-                @click="download"
-              >导出</el-button>
-            </div>
-          </div>
-          <!--表格渲染-->
-          <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
-            <el-table-column prop="username" label="用户名" />
-            <el-table-column prop="phone" label="电话" />
-            <el-table-column :show-overflow-tooltip="true" prop="email" label="邮箱" />
-            <el-table-column label="部门 / 岗位">
-              <template slot-scope="scope">
-                <div>{{ scope.row.dept.name }} / {{ scope.row.job.name }}</div>
-              </template>
-            </el-table-column>
-            <el-table-column label="状态" align="center">
-              <template slot-scope="scope">
-                <el-switch
-                  v-model="scope.row.enabled"
-                  active-color="#409EFF"
-                  inactive-color="#F56C6C"
-                  @change="changeEnabled(scope.row, scope.row.enabled,)"
-                />
-              </template>
-            </el-table-column>
-            <el-table-column :show-overflow-tooltip="true" prop="createTime" label="创建日期">
-              <template slot-scope="scope">
-                <span>{{ parseTime(scope.row.createTime) }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column v-if="checkPermission(['admin','user:edit','user:del'])" label="操作" width="125" align="center">
-              <template slot-scope="scope">
-                <el-button v-permission="['admin','user:edit']" size="mini" type="text" @click="edit(scope.row)">编辑</el-button>
-                <el-popover
-                  :ref="scope.row.id"
-                  v-permission="['admin','user:del']"
-                  placement="top"
-                  width="180"
-                >
-                  <p>确定删除本条数据吗？</p>
-                  <div style="text-align: right; margin: 0">
-                    <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
-                    <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>
-                  </div>
-                  <el-button slot="reference" type="text" size="mini">删除</el-button>
-                </el-popover>
-              </template>
-            </el-table-column>
-          </el-table>
-          <!--分页组件-->
-          <el-pagination
-            :total="total"
-            :current-page="page + 1"
-            style="margin-top: 8px;"
-            layout="total, prev, pager, next, sizes"
-            @size-change="sizeChange"
-            @current-change="pageChange"
-          />
-        </el-card>
-      </el-col>
-    </el-row>
+    <el-card shadow="never">
+      <!--工具栏-->
+      <div class="head-container">
+        <!-- 搜索 -->
+        <el-form :inline="true" class="search-form">
+          <el-form-item label="名称/邮箱">
+            <el-input v-model="query.blurry" size="small" clearable placeholder="输入名称或者邮箱搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
+          </el-form-item>
+          <el-form-item label="日期">
+            <el-date-picker
+              v-model="query.date"
+              type="daterange"
+              range-separator=":"
+              class="el-range-editor--small filter-item"
+              style="height: 30.5px;width: 220px"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            />
+          </el-form-item>
+          <el-form-item label="状态">
+            <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" style="width: 90px" @change="toQuery">
+              <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button class="filter-item" size="small" type="primary" icon="el-icon-search" @click="toQuery">搜索</el-button>
+            <el-button class="filter-item" size="small" type="primary" icon="el-icon-reset" @click="toQuery"><span class="svg-container"><svg-icon icon-class="reset" /></span>重置</el-button>
+          </el-form-item>
+        </el-form>
+        <!-- 新增 -->
+        <div v-permission="['admin','user:add']" style="display: inline-block;margin: 0px 2px;">
+          <el-button
+            class="filter-item"
+            size="small"
+            type="primary"
+            icon="el-icon-plus"
+            @click="add"
+          >新增</el-button>
+        </div>
+        <!-- 导出 -->
+        <div style="display: inline-block;">
+          <el-button
+            :loading="downloadLoading"
+            size="small"
+            class="filter-item"
+            type="primary"
+            icon="el-icon-download"
+            @click="download"
+          >导出</el-button>
+        </div>
+      </div>
+      <!--表格渲染-->
+      <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
+        <el-table-column prop="username" label="用户名" />
+        <el-table-column prop="phone" label="电话" />
+        <el-table-column :show-overflow-tooltip="true" prop="email" label="邮箱" />
+        <el-table-column label="部门 / 岗位">
+          <template slot-scope="scope">
+            <div>{{ scope.row.dept.name }} / {{ scope.row.job.name }}</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="状态" align="center">
+          <template slot-scope="scope">
+            <el-switch
+              v-model="scope.row.enabled"
+              active-color="#409EFF"
+              inactive-color="#F56C6C"
+              @change="changeEnabled(scope.row, scope.row.enabled,)"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column :show-overflow-tooltip="true" prop="createTime" label="创建日期">
+          <template slot-scope="scope">
+            <span>{{ parseTime(scope.row.createTime) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column v-if="checkPermission(['admin','user:edit','user:del'])" label="操作" width="125" align="center">
+          <template slot-scope="scope">
+            <el-button v-permission="['admin','user:edit']" size="mini" type="text" @click="edit(scope.row)">编辑</el-button>
+            <el-popover
+              :ref="scope.row.id"
+              v-permission="['admin','user:del']"
+              placement="top"
+              width="180"
+            >
+              <p>确定删除本条数据吗？</p>
+              <div style="text-align: right; margin: 0">
+                <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
+                <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>
+              </div>
+              <el-button slot="reference" type="text" size="mini">删除</el-button>
+            </el-popover>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!--分页组件-->
+      <el-pagination
+        :total="total"
+        :current-page="page + 1"
+        style="margin-top: 8px;"
+        layout="total, prev, pager, next, sizes"
+        @size-change="sizeChange"
+        @current-change="pageChange"
+      />
+    </el-card>
   </div>
 </template>
 
