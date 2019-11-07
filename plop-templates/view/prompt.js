@@ -1,11 +1,11 @@
 const { notEmpty } = require('../utils.js')
 
 module.exports = {
-  description: 'generate a view',
+  description: '生成一个页面',
   prompts: [{
     type: 'input',
     name: 'name',
-    message: 'view name please',
+    message: '请输入页面名称',
     validate: notEmpty('name')
   },
   {
@@ -47,6 +47,25 @@ module.exports = {
         template: data.blocks.includes('template'),
         script: data.blocks.includes('script'),
         style: data.blocks.includes('style')
+      }
+    },
+    {
+      type: 'add',
+      path: `src/views/${name}/form.vue`,
+      templateFile: 'plop-templates/view/form.hbs',
+      data: {
+        name: name,
+        template: data.blocks.includes('template'),
+        script: data.blocks.includes('script'),
+        style: data.blocks.includes('style')
+      }
+    },
+    {
+      type: 'add',
+      path: `src/api/${name}.js`,
+      templateFile: 'plop-templates/view/api.hbs',
+      data: {
+        name: name
       }
     }]
 
