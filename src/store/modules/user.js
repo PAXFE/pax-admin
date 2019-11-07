@@ -47,7 +47,7 @@ const actions = {
         commit('SET_TOKEN', result.token)
         Vue.ls.set('TOKEN', result.token, 7 * 24 * 60 * 60 * 1000)
         // setToken(result.token)
-        setUserInfo(result.userInfo, commit)
+        // setUserInfo(result.userInfo, commit)
         resolve()
       }).catch(error => {
         reject(error)

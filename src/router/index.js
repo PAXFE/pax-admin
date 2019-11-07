@@ -107,19 +107,6 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/icon',
-    component: Layout,
-    hidden: false,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/icons/index'),
-        name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true }
-      }
-    ]
-  },
-  {
     path: '/profile',
     component: Layout,
     redirect: '/profile/index',
