@@ -6,53 +6,69 @@
     <el-card shadow="never">
       <!--工具栏-->
       <div class="head-container">
-        <!-- 搜索 -->
-        <el-form :inline="true" class="search-form">
-          <el-form-item label="名称/邮箱">
-            <el-input v-model="query.blurry" size="small" clearable placeholder="输入名称或者邮箱搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
-          </el-form-item>
-          <el-form-item label="日期">
-            <el-date-picker
-              v-model="query.date"
-              type="daterange"
-              range-separator=":"
-              class="el-range-editor--small filter-item"
-              style="height: 30.5px;width: 220px"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-            />
-          </el-form-item>
-          <el-form-item label="状态">
-            <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" style="width: 90px" @change="toQuery">
-              <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-button class="filter-item" size="small" type="primary" icon="el-icon-search" @click="toQuery">搜索</el-button>
-            <el-button class="filter-item" size="small" type="primary" icon="el-icon-reset" @click="toQuery"><span class="svg-container"><svg-icon icon-class="reset" /></span>重置</el-button>
-          </el-form-item>
-        </el-form>
-        <!-- 新增 -->
-        <div v-permission="['admin','user:add']" style="display: inline-block;margin: 0px 2px;">
-          <el-button
-            class="filter-item"
-            size="small"
-            type="primary"
-            icon="el-icon-plus"
-            @click="add"
-          >新增</el-button>
+        <!-- 查询区域 -->
+        <div class="table-page-search-wrapper">
+          <el-form :inline="true" class="search-form">
+            <el-row :gutter="24">
+              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+                <el-form-item label="名称/邮箱">
+                  <el-input v-model="query.blurry" size="small" clearable placeholder="输入名称或者邮箱搜索" class="filter-item" @keyup.enter.native="toQuery" />
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+                <el-form-item label="日期">
+                  <el-date-picker
+                    v-model="query.date"
+                    size="small"
+                    style="max-width: 300px;"
+                    type="daterange"
+                    range-separator=":"
+                    class="el-range-editor--small filter-item"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                    start-placeholder="开始日期"
+                    end-placeholder="结束日期"
+                  />
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+                <el-form-item label="状态">
+                  <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" @change="toQuery">
+                    <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+                <el-form-item>
+                  <el-button size="small" type="primary" @click="toQuery">查询</el-button>
+                  <el-button size="small" @click="toQuery">重置</el-button>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
         </div>
-        <!-- 导出 -->
-        <div style="display: inline-block;">
-          <el-button
-            :loading="downloadLoading"
-            size="small"
-            class="filter-item"
-            type="primary"
-            icon="el-icon-download"
-            @click="download"
-          >导出</el-button>
+        <!-- 操作按钮区域 -->
+        <div class="table-operator">
+          <!-- 新增 -->
+          <div v-permission="['admin','user:add']" style="display: inline-block;margin: 0px 2px;">
+            <el-button
+              class="filter-item"
+              size="small"
+              type="primary"
+              icon="el-icon-plus"
+              @click="add"
+            >新增</el-button>
+          </div>
+          <!-- 导出 -->
+          <div style="display: inline-block;">
+            <el-button
+              :loading="downloadLoading"
+              size="small"
+              class="filter-item"
+              type="primary"
+              icon="el-icon-download"
+              @click="download"
+            >导出</el-button>
+          </div>
         </div>
       </div>
       <!--表格渲染-->

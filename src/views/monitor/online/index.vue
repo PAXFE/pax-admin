@@ -7,8 +7,8 @@
           <el-input v-model="query.value" size="small" clearable placeholder="请输入你要搜索的内容" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button class="filter-item" size="small" type="primary" icon="el-icon-search" @click="toQuery">搜索</el-button>
-          <el-button class="filter-item" size="small" type="primary" icon="el-icon-reset" @click="toQuery"><span class="svg-container"><svg-icon icon-class="reset" /></span>重置</el-button>
+          <el-button class="filter-item" size="small" type="primary" @click="toQuery">查询</el-button>
+          <el-button class="filter-item" size="small" type="primary" @click="toQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <!-- 导出 -->

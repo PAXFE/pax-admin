@@ -18,7 +18,7 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button class="filter-item" size="small" type="primary" icon="el-icon-search" @click="$parent.toQuery">搜索</el-button>
+        <el-button class="filter-item" size="small" type="primary" icon="el-icon-search" @click="$parent.toQuery">查询</el-button>
         <el-button class="filter-item" size="small" type="primary" icon="el-icon-reset" @click="$parent.toQuery"><span class="svg-container"><svg-icon icon-class="reset" /></span>重置</el-button>
       </el-form-item>
     </el-form>

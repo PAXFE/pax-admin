@@ -21,7 +21,7 @@
           <div class="head-container">
             <!-- 搜索 -->
             <el-input v-model="query.value" size="small" clearable placeholder="输入名称或者描述搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
-            <el-button class="filter-item" size="small" type="primary" icon="el-icon-search" @click="toQuery">搜索</el-button>
+            <el-button class="filter-item" size="small" type="primary" @click="toQuery">查询</el-button>
             <!-- 导出 -->
             <div style="display: inline-block;">
               <el-button

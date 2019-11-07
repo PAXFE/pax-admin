@@ -200,6 +200,43 @@ aside {
   margin-bottom: 20px;
 }
 
+.table-page-search-wrapper {
+
+  .el-form--inline {
+
+    .el-form-item {
+      display: flex;
+      margin-bottom: 24px;
+      margin-right: 0;
+
+      .el-form-item__content {
+        flex: 1 1;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      > .el-form-item__label {
+        line-height: 32px;
+        padding-right: 8px;
+        width: auto;
+        font-weight: 400;
+      }
+      .filter-item {
+        width: 100%;
+        height: 32px;
+        line-height: 32px;
+      }
+    }
+  }
+
+  .table-page-search-submitButtons {
+    display: block;
+    margin-bottom: 24px;
+    white-space: nowrap;
+  }
+
+}
+
 #el-main-footer {
   background: none repeat scroll 0 0 white;
   border-top: 1px solid #e7eaec;
