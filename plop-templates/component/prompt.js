@@ -1,17 +1,17 @@
 const { notEmpty } = require('../utils.js')
 
 module.exports = {
-  description: 'generate vue component',
+  description: '生成一个组件',
   prompts: [{
     type: 'input',
     name: 'name',
-    message: 'component name please',
+    message: '请输入组件名称',
     validate: notEmpty('name')
   },
   {
     type: 'checkbox',
     name: 'blocks',
-    message: 'Blocks:',
+    message: '请选择:',
     choices: [{
       name: '<template>',
       value: 'template',

@@ -45,7 +45,7 @@ export default {
 
 .hasTagsView {
   .app-main {
-    /* 94 = navbar + tags-view = 60 + 34 */
+    /* 94 = navbar + tags-complex-view = 60 + 34 */
     min-height: calc(100vh - 94px);
     /*min-height: 100vh;*/
   }
