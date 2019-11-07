@@ -11,7 +11,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether need tagsView
    */
-  tagsView: false,
+  tagsView: true,
 
   /**
    * @type {boolean} true | false
@@ -23,13 +23,13 @@ module.exports = {
    * @type {boolean} true | false
    * @description 是否显示消息通知
    */
-  showHeaderNotice: false,
+  showHeaderNotice: true,
 
   /**
    * @type {boolean} true | false
    * @description 是否显示国际化
    */
-  showGlobal: false,
+  showGlobal: true,
 
   /**
    * @type {boolean} true | false
