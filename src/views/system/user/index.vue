@@ -39,8 +39,10 @@
               </el-col>
               <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
                 <el-form-item>
-                  <el-button size="small" type="primary" @click="toQuery">查询</el-button>
-                  <el-button size="small" @click="toQuery">重置</el-button>
+                  <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+                    <el-button size="small" type="primary" @click="toQuery">查询</el-button>
+                    <el-button size="small" @click="toQuery">重置</el-button>
+                  </span>
                 </el-form-item>
               </el-col>
             </el-row>
