@@ -23,12 +23,17 @@ import defaultSettings from '@/settings'
 
 import dict from './directive/Dict'
 import permission from './directive/permission'
+import i18n from './lang'
 
 Vue.use(permission)
 Vue.use(dict)
 Vue.use(Storage, defaultSettings.storageOptions)
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium' // set element-ui default size
+})
+Vue.use(Element, {
+  size: 'medium', // set element-ui default size
+  i18n: (key, value) => i18n.t(key, value)
 })
 
 // register global utility filters
@@ -42,5 +47,6 @@ new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   render: h => h(App)
 })

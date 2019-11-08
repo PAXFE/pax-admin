@@ -10,7 +10,7 @@
 
     <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
       <template slot="title">
-        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
+        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="generateTitle(item.meta.title)" />
       </template>
       <sidebar-item
         v-for="child in item.children"
@@ -21,12 +21,14 @@
         class="nest-menu"
       />
     </el-submenu>
+
   </div>
 </template>
 
 <script>
 import path from 'path'
 import { isExternal } from '@/utils/validate'
+import { generateTitle } from '@/utils/i18n'
 import Item from './Item'
 import AppLink from './Link'
 import FixiOSBug from './FixiOSBug'
@@ -89,7 +91,8 @@ export default {
         return this.basePath
       }
       return path.resolve(this.basePath, routePath)
-    }
+    },
+    generateTitle
   }
 }
 </script>

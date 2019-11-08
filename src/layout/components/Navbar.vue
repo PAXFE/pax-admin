@@ -39,21 +39,14 @@
       <!-- avatar end -->
 
       <!-- 国际化 start -->
-      <el-dropdown v-if="showGlobal" class="global-container right-menu-item hover-effect">
-        <svg-icon icon-class="earth" />
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>简体中文</el-dropdown-item>
-          <el-dropdown-item>繁体中文</el-dropdown-item>
-          <el-dropdown-item>English</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <!-- 国际化 end -->
+      <lang-select v-if="showGlobal" class="set-language" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import LangSelect from '@/components/LangSelect'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import ErrorLog from '@/components/ErrorLog'
@@ -63,6 +56,7 @@ import Notice from '@/components/HeaderNotice'
 export default {
   components: {
     Breadcrumb,
+    LangSelect,
     Hamburger,
     ErrorLog,
     Search,
@@ -185,6 +179,12 @@ export default {
           font-size: 12px;
         }
       }
+    }
+    .set-language {
+      color: #c5c3c3;
+      position: absolute;
+      top: 0;
+      right: 0;
     }
   }
 }

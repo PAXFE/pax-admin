@@ -1,5 +1,5 @@
 <script>
-
+import { generateTitle } from '@/utils/i18n'
 export default {
   name: 'MenuItem',
   functional: true,
@@ -12,6 +12,9 @@ export default {
       type: String,
       default: ''
     }
+  },
+  method: {
+    generateTitle
   },
   render(h, context) {
     const { icon, title } = context.props
