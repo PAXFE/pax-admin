@@ -171,7 +171,7 @@ export default {
       this.$emit('input', value)
       if (this.$parent.$options.componentName === 'ElFormItem') {
         if (this.validateEvent) {
-          this.$parent.$emit('el.form.change', [value])
+          this.$parent.$emit('form.change', [value])
         }
       }
       this.$emit('change', value)
@@ -189,7 +189,7 @@ export default {
       this.fillPlaceHolder = null
       if (this.$parent.$options.componentName === 'ElFormItem') {
         if (this.validateEvent) {
-          this.$parent.$emit('el.form.blur', [this.currentValue])
+          this.$parent.$emit('form.blur', [this.currentValue])
         }
       }
     }

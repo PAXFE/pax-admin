@@ -107,6 +107,38 @@ export const constantRoutes = [
         meta: { title: '个人中心', icon: 'user', noCache: true }
       }
     ]
+  },
+  {
+    path: '/account',
+    component: Layout,
+    hidden: false,
+    meta: { title: '账户管理', icon: 'icon', noCache: true },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/account/query/index'),
+        name: 'AccountQuery',
+        meta: { title: '账户查询', noCache: true }
+      },
+      {
+        path: 'pay',
+        component: () => import('@/views/account/pay/index'),
+        name: 'Pay',
+        meta: { title: '打款', noCache: true }
+      },
+      {
+        path: 'backfill',
+        component: () => import('@/views/account/backfill/index'),
+        name: 'Pay',
+        meta: { title: '回填', noCache: true }
+      },
+      {
+        path: 'change',
+        component: () => import('@/views/account/change/index'),
+        name: 'AccountChange',
+        meta: { title: '账户变动后记录查询查询', noCache: true }
+      }
+    ]
   }
 ]
 
