@@ -112,13 +112,27 @@ export const constantRoutes = [
     path: '/account',
     component: Layout,
     hidden: false,
-    meta: { title: '账户管理', icon: 'icon', noCache: true },
+    meta: { title: '账户管理', icon: 'account', noCache: true },
     children: [
       {
         path: 'index',
         component: () => import('@/views/account/query/index'),
         name: 'AccountQuery',
         meta: { title: '账户查询', noCache: true }
+      },
+      {
+        path: 'sub-account',
+        component: () => import('@/views/account/sub-account/index'),
+        name: 'SubAccount',
+        hidden: true,
+        meta: { title: '子账户信息', noCache: true }
+      },
+      {
+        path: 'flow',
+        component: () => import('@/views/account/flow/index'),
+        name: 'Flow',
+        hidden: true,
+        meta: { title: '记账流水', noCache: true }
       },
       {
         path: 'pay',
@@ -136,7 +150,7 @@ export const constantRoutes = [
         path: 'change',
         component: () => import('@/views/account/change/index'),
         name: 'AccountChange',
-        meta: { title: '账户变动后记录查询查询', noCache: true }
+        meta: { title: '账户变动后记录查询', noCache: true }
       }
     ]
   }

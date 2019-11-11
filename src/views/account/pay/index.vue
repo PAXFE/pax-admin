@@ -18,17 +18,15 @@
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
-                <el-form-item label="对象ID">
+                <el-form-item label="币种">
                   <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" @change="toQuery">
                     <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
-                <el-form-item label="对象class">
-                  <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" @change="toQuery">
-                    <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-                  </el-select>
+                <el-form-item label="余额>=">
+                  <el-input v-model="query.blurry" size="small" clearable placeholder="输入名称或者邮箱搜索" class="filter-item" @keyup.enter.native="toQuery" />
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
@@ -43,41 +41,55 @@
           </el-form>
         </div>
       </div>
-      <!--表格渲染-->
-      <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
-        <el-table-column prop="phone" label="账户ID" />
-        <el-table-column prop="username" label="账户名称" />
-        <el-table-column label="账户状态" align="center">
-          <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.enabled"
-              active-color="#409EFF"
-              inactive-color="#F56C6C"
-              @change="changeEnabled(scope.row, scope.row.enabled,)"
-            />
-          </template>
-        </el-table-column>
-        <el-table-column prop="phone" label="子账户数量" />
-        <el-table-column :show-overflow-tooltip="true" prop="createTime" label="开户时间">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.createTime) }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column v-if="checkPermission(['admin','user:edit','user:del'])" label="操作" width="125" align="center">
-          <template slot-scope="scope">
-            <el-button v-permission="['admin','user:edit']" size="mini" type="text" @click="edit(scope.row)">查看</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <!--分页组件-->
-      <el-pagination
-        :total="total"
-        :current-page="page + 1"
-        style="margin-top: 8px;"
-        layout="total, prev, pager, next, sizes"
-        @size-change="sizeChange"
-        @current-change="pageChange"
-      />
+      <div class="standard-table">
+        <!--表格渲染-->
+        <div class="alert">
+          <el-alert type="info" :closable="false">
+            <div slot="title">
+              已选择&nbsp;<a style="font-weight: 600">0</a>&nbsp;项
+              <a style="margin-left: 24px">清空</a>
+            </div>
+          </el-alert>
+        </div>
+        <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
+          <el-table-column
+            type="selection"
+            width="55"
+          />
+          <el-table-column prop="phone" label="账户ID" />
+          <el-table-column prop="username" label="账户名称" />
+          <el-table-column label="账户状态" align="center">
+            <template slot-scope="scope">
+              <el-switch
+                v-model="scope.row.enabled"
+                active-color="#409EFF"
+                inactive-color="#F56C6C"
+                @change="changeEnabled(scope.row, scope.row.enabled,)"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column prop="phone" label="子账户数量" />
+          <el-table-column :show-overflow-tooltip="true" prop="createTime" label="开户时间">
+            <template slot-scope="scope">
+              <span>{{ parseTime(scope.row.createTime) }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column v-if="checkPermission(['admin','user:edit','user:del'])" label="操作" width="125" align="center">
+            <template slot-scope="scope">
+              <el-button v-permission="['admin','user:edit']" size="mini" type="text" @click="edit(scope.row)">查看</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <!--分页组件-->
+        <el-pagination
+          :total="total"
+          :current-page="page + 1"
+          style="margin-top: 8px;"
+          layout="total, prev, pager, next, sizes"
+          @size-change="sizeChange"
+          @current-change="pageChange"
+        />
+      </div>
     </el-card>
   </div>
 </template>

@@ -52,7 +52,7 @@ module.exports = {
   /**
    * 底部文字，支持html语法
    */
-  footerTxt: 'Copyright © 2011-2016 <a href="https://www.pax.com.cn/" target="_blank">百富计算机技术(深圳)有限公司</a> All Rights Reserved.',
+  footerTxt: 'Copyright © 2019 <a href="https://www.pax.com.cn/" target="_blank">百富计算机技术(深圳)有限公司</a> All Rights Reserved.',
 
   /**
    * @type {string | array} 'production' | ['production', 'development']

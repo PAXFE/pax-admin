@@ -2,66 +2,97 @@
   <div class="app-container">
     <!-- 页面内容 -->
     <el-card shadow="never">
-      <!--工具栏-->
-      <div class="head-container">
-        <!-- 查询区域 -->
-        <div class="table-page-search-wrapper">
-          <el-form :inline="true" class="search-form">
-            <el-row :gutter="24">
-              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
-                <el-form-item label="打款单号">
-                  <el-input v-model="query.blurry" size="small" clearable placeholder="输入打款单号" class="filter-item" @keyup.enter.native="toQuery" />
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
-                <el-form-item>
-                  <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
-                    <el-button size="small" type="primary" @click="toQuery">查询</el-button>
-                    <el-button size="small" @click="toQuery">重置</el-button>
-                  </span>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </div>
-      </div>
-      <detail-list title="回填信息">
-        <detail-list-item term="付款日期">2019-08-10</detail-list-item>
-        <detail-list-item term="付款单号">1234123421</detail-list-item>
-        <detail-list-item term="子账户ID">3214321432</detail-list-item>
-        <detail-list-item term="子账户名称">xxxxxx</detail-list-item>
-        <detail-list-item term="币种">
-          <el-input size="small" type="text" />
-        </detail-list-item>
-        <detail-list-item term="金额">
-          <el-input size="small" type="text" />
-        </detail-list-item>
-        <detail-list-item term="手续费">
-          <el-input size="small" type="text" />
-        </detail-list-item>
-        <detail-list-item term="时间">
-          <el-input size="small" type="text" />
-        </detail-list-item>
-        <el-row>
-          <el-col :span="24">
-            <el-button type="primary" size="small">确认提交</el-button>
-          </el-col>
-        </el-row>
+      <detail-list title="子账户信息">
+        <detail-list-item term="账户ID">xxxxxx</detail-list-item>
+        <detail-list-item term="账户名称">xxxxxx</detail-list-item>
+        <detail-list-item term="账户状态">xxxxxx</detail-list-item>
+        <detail-list-item term="子账户数量">12</detail-list-item>
+        <detail-list-item term="开户时间">xxxxxx</detail-list-item>
+        <detail-list-item term="余额">xxxxxx</detail-list-item>
+        <detail-list-item term="冻结金额">xxxxxx</detail-list-item>
       </detail-list>
       <el-divider />
-      <detail-list title="回填信息">
-        <el-row type="flex" justify="space-between">
-          <el-col :span="6">回填记录1</el-col>
-          <el-col :span="6">
-            <el-button type="text">查看详情</el-button>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between">
-          <el-col :span="6">回填记录2</el-col>
-          <el-col :span="6">
-            <el-button type="text">查看详情</el-button>
-          </el-col>
-        </el-row>
+      <detail-list title="记账流水">
+        <!--工具栏-->
+        <div class="head-container">
+          <!-- 查询区域 -->
+          <div class="table-page-search-wrapper">
+            <el-form :inline="true" class="search-form">
+              <el-row :gutter="24">
+                <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+                  <el-form-item label="记账方向">
+                    <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" @change="toQuery">
+                      <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+                  <el-form-item label="起始时间">
+                    <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" @change="toQuery">
+                      <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+                  <el-form-item label="结束时间">
+                    <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" @change="toQuery">
+                      <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
+                  <el-form-item>
+                    <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+                      <el-button size="small" type="primary" @click="toQuery">查询</el-button>
+                      <el-button size="small" @click="toQuery">重置</el-button>
+                    </span>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
+          </div>
+        </div>
+        <!--表格渲染-->
+        <div class="standard-table">
+          <div class="alert">
+            <el-alert type="info" :closable="false">
+              <div slot="title">
+                <span>笔数：123456</span>&nbsp;&nbsp;
+                <span>总额：2423423.54</span>
+              </div>
+            </el-alert>
+          </div>
+          <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
+            <el-table-column prop="phone" label="子账户ID" />
+            <el-table-column prop="username" label="账户名称" />
+            <el-table-column prop="username" label="记账凭证号" />
+            <el-table-column prop="username" label="借/贷" />
+            <el-table-column prop="username" label="币种" />
+            <el-table-column prop="phone" label="金额" />
+            <el-table-column prop="phone" label="记账前余额" />
+            <el-table-column prop="phone" label="记账后余额" />
+            <el-table-column prop="phone" label="备注信息" />
+            <el-table-column :show-overflow-tooltip="true" prop="createTime" label="记账时间">
+              <template slot-scope="scope">
+                <span>{{ parseTime(scope.row.createTime) }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column v-if="checkPermission(['admin','user:edit','user:del'])" label="查询记账流水" width="125" align="center">
+              <template slot-scope="scope">
+                <el-button v-permission="['admin','user:edit']" size="mini" type="text" @click="edit(scope.row)">进入查询</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <!--分页组件-->
+          <el-pagination
+            :total="total"
+            :current-page="page + 1"
+            style="margin-top: 8px;"
+            layout="total, prev, pager, next, sizes"
+            @size-change="sizeChange"
+            @current-change="pageChange"
+          />
+        </div>
       </detail-list>
     </el-card>
   </div>

@@ -1,87 +1,85 @@
 <template>
   <div class="app-container">
-    <!--form 组件-->
-    <eForm ref="form" :is-add="isAdd" :dicts="dict.user_status" />
     <!-- 页面内容 -->
     <el-card shadow="never">
-      <!--工具栏-->
-      <div class="head-container">
-        <!-- 查询区域 -->
-        <div class="table-page-search-wrapper">
-          <el-form :inline="true" class="search-form">
-            <el-row :gutter="24">
-              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
-                <el-form-item label="对象类型">
-                  <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" @change="toQuery">
-                    <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
-                <el-form-item label="对象ID">
-                  <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" @change="toQuery">
-                    <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
-                <el-form-item label="对象class">
-                  <el-select v-model="query.enabled" size="small" clearable placeholder="状态" class="filter-item" @change="toQuery">
-                    <el-option v-for="item in enabledTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
-                <el-form-item>
-                  <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
-                    <el-button size="small" type="primary" @click="toQuery">查询</el-button>
-                    <el-button size="small" @click="toQuery">重置</el-button>
-                  </span>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
+      <detail-list title="主账户信息">
+        <detail-list-item term="账户ID">xxxxxx</detail-list-item>
+        <detail-list-item term="账户名称">xxxxxx</detail-list-item>
+        <detail-list-item term="账户状态">xxxxxx</detail-list-item>
+        <detail-list-item term="子账户数量">12</detail-list-item>
+        <detail-list-item term="开户时间">xxxxxx</detail-list-item>
+      </detail-list>
+      <el-divider />
+      <detail-list title="子账户列表">
+        <!--工具栏-->
+        <div class="head-container">
+          <!-- 操作按钮区域 -->
+          <div class="table-operator">
+            <!-- 批量操作 -->
+            <div v-if="selectedRowKeys.length > 0" style="display: inline-block;margin: 0px 2px;">
+              <el-dropdown>
+                <el-button size="small">
+                  批量操作<i class="el-icon-arrow-down el-icon--right" />
+                </el-button>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item>激活</el-dropdown-item>
+                  <el-dropdown-item>冻结</el-dropdown-item>
+                  <el-dropdown-item>解冻</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+          </div>
         </div>
-      </div>
-      <!--表格渲染-->
-      <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
-        <el-table-column prop="phone" label="账户ID" />
-        <el-table-column label="账户名称">
-          <template slot-scope="scope">
-            <el-button type="text" @click="view(scope.row)">{{ scope.row.username }}</el-button>
-          </template>
-        </el-table-column>
-        <el-table-column label="账户状态" align="center">
-          <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.enabled"
-              active-color="#409EFF"
-              inactive-color="#F56C6C"
-              @change="changeEnabled(scope.row, scope.row.enabled,)"
+        <div class="standard-table">
+          <!--表格渲染-->
+          <div class="alert">
+            <el-alert type="info" :closable="false">
+              <div slot="title">
+                已选择&nbsp;<a style="font-weight: 600">{{ selectedRowKeys.length }}</a>&nbsp;项
+                <a style="margin-left: 24px" @click="onClearSelected">清空</a>
+              </div>
+            </el-alert>
+          </div>
+          <el-table
+            ref="standardTable"
+            v-loading="loading"
+            :data="data"
+            size="small"
+            style="width: 100%;"
+            @selection-change="onSelectChange"
+          >
+            <el-table-column
+              type="selection"
+              width="55"
             />
-          </template>
-        </el-table-column>
-        <el-table-column prop="phone" label="子账户数量" />
-        <el-table-column :show-overflow-tooltip="true" prop="createTime" label="开户时间">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.createTime) }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column v-if="checkPermission(['admin','user:edit','user:del'])" label="操作" width="125" align="center">
-          <template slot-scope="scope">
-            <el-button v-permission="['admin','user:edit']" size="mini" type="text" @click="view(scope.row)">查看</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <!--分页组件-->
-      <el-pagination
-        :total="total"
-        :current-page="page + 1"
-        style="margin-top: 8px;"
-        layout="total, prev, pager, next, sizes"
-        @size-change="sizeChange"
-        @current-change="pageChange"
-      />
+            <el-table-column prop="phone" label="子账户ID" />
+            <el-table-column prop="username" label="账户名称" />
+            <el-table-column prop="username" label="账户类型" />
+            <el-table-column prop="username" label="状态" />
+            <el-table-column prop="username" label="币种" />
+            <el-table-column prop="phone" label="余额" />
+            <el-table-column :show-overflow-tooltip="true" prop="createTime" label="最后到账时间">
+              <template slot-scope="scope">
+                <span>{{ parseTime(scope.row.createTime) }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column v-if="checkPermission(['admin','user:edit','user:del'])" label="查询记账流水" width="125" align="center">
+              <template slot-scope="scope">
+                <el-button v-permission="['admin','user:edit']" size="mini" type="text" @click="view(scope.row)">进入查询</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <!--分页组件-->
+          <el-pagination
+            :total="total"
+            :current-page="page + 1"
+            style="margin-top: 8px;"
+            layout="total, prev, pager, next, sizes"
+            @size-change="sizeChange"
+            @current-change="pageChange"
+          />
+        </div>
+      </detail-list>
     </el-card>
   </div>
 </template>
@@ -92,10 +90,15 @@ import initData from '@/mixins/initData'
 import { del, downloadUser, edit } from '@/api/user'
 import { getDepts } from '@/api/dept'
 import { parseTime, downloadFile } from '@/utils/index'
-import eForm from './form'
+import DetailList from '@/components/DetailList'
+const DetailListItem = DetailList.Item
+
 export default {
-  name: 'Account',
-  components: { eForm },
+  name: 'AccountChange',
+  components: {
+    DetailList,
+    DetailListItem
+  },
   mixins: [initData],
   // 设置数据字典
   dicts: ['user_status'],
@@ -208,7 +211,7 @@ export default {
       }))
     },
     view(data) {
-      this.$router.push('/account/sub-account')
+      this.$router.push('/account/flow')
     },
     edit(data) {
       this.isAdd = false
