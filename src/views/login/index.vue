@@ -90,7 +90,7 @@ export default {
       }
     }
     return {
-      title: 'pax-admin',
+      title: '账务系统',
       loginForm: {
         username: 'admin',
         password: '123456'

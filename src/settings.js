@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'pax-admin',
+  title: '账务系统',
 
   /**
    * @type {boolean} true | false

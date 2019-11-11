@@ -2,7 +2,7 @@
   <div class="home-container">
     <el-row class="content">
       <img src="@/assets/images/chatu.png" alt="chatu">
-      <p>欢迎进入pax-admin平台</p>
+      <p>欢迎进入账务系统平台</p>
     </el-row>
   </div>
 </template>
