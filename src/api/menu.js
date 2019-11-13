@@ -3,21 +3,21 @@ import request from '@/utils/request'
 // 获取所有的菜单树
 export function getMenusTree() {
   return request({
-    url: '/menus/tree',
+    url: '/api/menus',
     method: 'get'
   })
 }
 
 export function buildMenus() {
   return request({
-    url: '/menus/build',
+    url: '/api/menus/build',
     method: 'get'
   })
 }
 
 export function add(data) {
   return request({
-    url: '/menus',
+    url: '/api/menus',
     method: 'post',
     data
   })
@@ -25,14 +25,14 @@ export function add(data) {
 
 export function del(id) {
   return request({
-    url: '/menus/' + id,
+    url: '/api/menus/' + id,
     method: 'delete'
   })
 }
 
 export function edit(data) {
   return request({
-    url: '/menus',
+    url: '/api/menus',
     method: 'put',
     data
   })

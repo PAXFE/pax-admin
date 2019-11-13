@@ -1,9 +1,16 @@
 import request from '@/utils/request'
 // import qs from 'qs'
 
+export function getCode() {
+  return request({
+    url: '/auth/vCode',
+    method: 'get'
+  })
+}
+
 export function login(data) {
   return request({
-    url: '/user/login',
+    url: '/auth/login',
     method: 'post',
     data: data
   })
@@ -11,15 +18,15 @@ export function login(data) {
 
 export function getUserInfo() {
   return request({
-    url: `/user/getUserInfo`,
+    url: `/auth/info`,
     method: 'get'
   })
 }
 
 export function logout() {
   return request({
-    url: '/user/logout',
-    method: 'post'
+    url: '/auth/logout',
+    method: 'delete'
   })
 }
 

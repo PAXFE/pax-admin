@@ -26,13 +26,13 @@ export default {
       return new Promise((resolve, reject) => {
         this.loading = true
         initData(this.url, this.params).then(res => {
-          const { result } = res
-          this.total = result.totalElements
-          this.data = result.content
+          // const { result } = res
+          this.total = res.totalElements || 0
+          this.data = res.content
           setTimeout(() => {
             this.loading = false
           }, this.time)
-          resolve(result)
+          resolve(res)
         }).catch(err => {
           this.loading = false
           reject(err)

@@ -1,6 +1,5 @@
-import Vue from 'vue'
 import { login, logout, getUserInfo } from '@/api/user'
-import { getToken } from '@/utils/auth'
+import { setToken, getToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
@@ -40,13 +39,13 @@ const mutations = {
 const actions = {
   // user login
   Login({ commit }, userInfo) {
-    const { username, password } = userInfo
+    // const { username, password, code, uuid } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { result } = response
-        commit('SET_TOKEN', result.token)
-        Vue.ls.set('TOKEN', result.token, 7 * 24 * 60 * 60 * 1000)
-        // setToken(result.token)
+      login(userInfo).then(response => {
+        const { token } = response
+        commit('SET_TOKEN', token)
+        // Vue.ls.set('TOKEN', token, 7 * 24 * 60 * 60 * 1000)
+        setToken(token)
         // setUserInfo(result.userInfo, commit)
         resolve()
       }).catch(error => {
@@ -58,10 +57,10 @@ const actions = {
   // get user info
   GetUserInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getUserInfo(state.token).then(response => {
-        const { result } = response
+      getUserInfo().then(response => {
+        // const { result } = response
 
-        setUserInfo(result, commit)
+        setUserInfo(response, commit)
 
         // if (!result) {
         //   reject('Verification failed, please Login again.')
@@ -79,7 +78,7 @@ const actions = {
         // commit('SET_USERID', userId)
         // commit('SET_AVATAR', avatar)
         // commit('SET_INTRODUCTION', introduction)
-        resolve(result)
+        resolve(response)
       }).catch(error => {
         reject(error)
       })
@@ -93,8 +92,8 @@ const actions = {
         commit('SET_TOKEN', '')
         commit('SET_USERINFO', {})
         commit('SET_ROLES', [])
-        Vue.ls.remove('TOKEN')
-        // removeToken()
+        // Vue.ls.remove('TOKEN')
+        removeToken()
         resetRouter()
 
         // reset visited views and cached views
@@ -106,7 +105,8 @@ const actions = {
         commit('SET_TOKEN', '')
         commit('SET_USERINFO', {})
         commit('SET_ROLES', [])
-        Vue.ls.remove('TOKEN')
+        // Vue.ls.remove('TOKEN')
+        removeToken()
         resetRouter()
         reject(error)
       })
@@ -119,8 +119,8 @@ const actions = {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
       commit('SET_USERINFO', {})
-      Vue.ls.remove('TOKEN')
-      // removeToken()
+      // Vue.ls.remove('TOKEN')
+      removeToken()
       resolve()
     })
   },
@@ -131,8 +131,8 @@ const actions = {
       const token = role + '-token'
 
       commit('SET_TOKEN', token)
-      // setToken(token)
-      Vue.ls.set('TOKEN', token, 7 * 24 * 60 * 60 * 1000)
+      setToken(token)
+      // Vue.ls.set('TOKEN', token, 7 * 24 * 60 * 60 * 1000)
 
       const { roles } = await dispatch('GetUserInfo')
 

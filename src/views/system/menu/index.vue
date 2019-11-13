@@ -151,7 +151,7 @@ export default {
     parseTime,
     checkPermission,
     beforeInit() {
-      this.url = '/menus'
+      this.url = '/api/menus'
       const sort = 'id,desc'
       const query = this.query
       const value = query.value
@@ -186,10 +186,11 @@ export default {
       this.$refs.form.dialog = true
     },
     edit(data) {
+      console.log(data)
       this.isAdd = false
       const _this = this.$refs.form
       _this.getMenus()
-      _this.form = { id: data.id, component: data.component, componentName: data.componentName, name: data.name, sort: data.sort, pid: data.pid, path: data.path, iframe: data.iframe.toString(), roles: [], icon: data.icon, cache: data.cache, hidden: data.hidden, type: data.type, permission: data.permission }
+      _this.form = { id: data.id, component: data.component, componentName: data.componentName, name: data.name, sort: data.sort, pid: data.pid, path: data.path, iframe: data.iframe.toString(), roles: [], icon: data.icon, cache: data.cache, hidden: data.hidden, level: data.level, permission: data.permission }
       _this.dialog = true
     },
     changExpand() {

@@ -53,7 +53,7 @@
             <el-form-item>
               <div class="captcha-wrapper">
                 <el-input v-model="loginForm.verifyCode" placeholder="验证码" class="captcha-input" />
-                <img src="http://192.168.16.102:27081/cms/user/createRandomCode?1570849306218" alt="captcha">
+                <img :src="captchaImg" alt="Captcha" @click="_getCode">
               </div>
             </el-form-item>
             <el-form-item>
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-
+import { getCode } from '@/api/user.js'
 export default {
   name: 'Login',
   data() {
@@ -91,9 +91,12 @@ export default {
     }
     return {
       title: '账务系统',
+      captchaImg: '',
       loginForm: {
         username: 'admin',
-        password: '123456'
+        password: '123456',
+        code: undefined,
+        uuid: undefined
         // verifyCode: ''
       },
       loginRules: {
@@ -124,6 +127,7 @@ export default {
     // window.addEventListener('storage', this.afterQRScan)
   },
   mounted() {
+    this._getCode()
     if (this.loginForm.username === '') {
       this.$refs.username.focus()
     } else if (this.loginForm.password === '') {
@@ -134,6 +138,13 @@ export default {
     // window.removeEventListener('storage', this.afterQRScan)
   },
   methods: {
+    // 获取验证码
+    async _getCode() {
+      const { img, uuid, code } = await getCode()
+      this.captchaImg = `data:image/jpeg;base64,${img}`
+      this.loginForm.code = code
+      this.loginForm.uuid = uuid
+    },
     checkCapslock({ shiftKey, key } = {}) {
       if (key && key.length === 1) {
         if (shiftKey && (key >= 'a' && key <= 'z') || !shiftKey && (key >= 'A' && key <= 'Z')) {
@@ -182,24 +193,6 @@ export default {
         return acc
       }, {})
     }
-    // afterQRScan() {
-    //   if (e.key === 'x-admin-oauth-code') {
-    //     const code = getQueryObject(e.newValue)
-    //     const codeMap = {
-    //       wechat: 'code',
-    //       tencent: 'code'
-    //     }
-    //     const type = codeMap[this.auth_type]
-    //     const codeName = code[type]
-    //     if (codeName) {
-    //       this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
-    //         this.$router.push({ path: this.redirect || '/' })
-    //       })
-    //     } else {
-    //       alert('第三方登录失败')
-    //     }
-    //   }
-    // }
   }
 }
 </script>
@@ -276,7 +269,7 @@ $cursor: #fff;
             }
             img {
               height: 35px;
-              max-width: 45%;
+              max-width: 40%;
             }
           }
         }

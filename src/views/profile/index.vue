@@ -9,10 +9,10 @@
           <el-col :span="2" class="key"><span>用户名：</span></el-col>
           <el-col :span="10" class="value"><span>{{ userInfo.loginAccount }}</span></el-col>
         </el-row>
-        <el-row>
-          <el-col :span="2" class="key"><span>角色：</span></el-col>
-          <el-col :span="10" class="value"><span>{{ userInfo.roleId === 1 ? '管理员' : '开发者' }}</span></el-col>
-        </el-row>
+        <!--        <el-row>-->
+        <!--          <el-col :span="2" class="key"><span>角色：</span></el-col>-->
+        <!--          <el-col :span="10" class="value"><span>{{ userInfo.roleId === 1 ? '管理员' : '开发者' }}</span></el-col>-->
+        <!--        </el-row>-->
         <el-row>
           <el-col :span="2" class="key"><span>姓名：</span></el-col>
           <el-col v-if="!showNameEditForm" :span="10" class="value">
@@ -49,17 +49,10 @@
             </el-form>
           </el-col>
         </el-row>
-        <!--        <el-row>-->
-        <!--          <el-col :span="2" class="key"><span>APIUserId：</span></el-col>-->
-        <!--          <el-col :span="10" class="value"><span>{{ userInfo.accessId }}</span></el-col>-->
-        <!--        </el-row>-->
-        <!--        <el-row>-->
-        <!--          <el-col :span="2" class="key"><span>APIAccessKey：</span></el-col>-->
-        <!--          <el-col :span="10" class="value">-->
-        <!--            <span style="margin-right: 30px;">{{ userInfo.accessKey }}</span>-->
-        <!--            <el-button size="mini" @click="_resetAccessKey"><svg-icon icon-class="reset" /> 重置</el-button>-->
-        <!--          </el-col>-->
-        <!--        </el-row>-->
+        <el-row>
+          <el-col :span="2" class="key"><span>创建账号时间：</span></el-col>
+          <el-col :span="10" class="value"><span>{{ userInfo.builddatetime }}</span></el-col>
+        </el-row>
         <el-row>
           <el-col :span="2" class="key"><span>密码：</span></el-col>
           <el-col v-if="!showPwdEditForm" :span="10">
