@@ -19,13 +19,16 @@ export default {
     theme: 'theme'
   },
   login: {
+    hotline: 'Hot Line',
     title: 'Login Form',
-    logIn: 'Log in',
+    logIn: 'Login',
     username: 'Username',
     password: 'Password',
+    verificationCode: 'Verification Code',
     any: 'any',
     thirdparty: 'Or connect with',
-    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !',
+    company: 'PAX computer technology (Shenzhen) company'
   },
   documentation: {
     documentation: 'Documentation',

@@ -1,29 +1,22 @@
 <template>
-
   <el-container class="login-container">
     <el-header class="page-header">
       <img src="@/assets/images/logo_text.png" alt="logo">
-      <!--      <div class="logo-wrapper">-->
-      <!--        <img src="@/assets/images/logo.png" alt="logo">-->
-      <!--        <p><i>{{title}}</i></p>-->
-      <!--      </div>-->
-      <p>服务热线：023-67904081</p>
+      <p>{{ $t('login.hotline') }}：023-67904081</p>
     </el-header>
     <el-main class="page-content">
       <el-row class="content-wrapper">
-        <el-col :span="14" class="content-left">
-          <img src="@/assets/images/chatu.png" alt="chatu">
-        </el-col>
-        <el-col :span="10" class="content-right">
+        <el-col :span="14" :offset="5">
           <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
             <div class="title-container">
-              <h3 class="title">用户登录</h3>
+              <h3 class="title">{{ $t('login.title') }}</h3>
+              <lang-select v-if="showGlobal" class="set-language" />
             </div>
             <el-form-item prop="username">
               <el-input
                 ref="username"
                 v-model="loginForm.username"
-                placeholder="用户名"
+                :placeholder="$t('login.username')"
                 name="username"
                 type="text"
                 tabindex="1"
@@ -37,7 +30,7 @@
                 <el-input
                   ref="password"
                   v-model="loginForm.password"
-                  placeholder="密码"
+                  :placeholder="$t('login.password')"
                   name="password"
                   type="password"
                   tabindex="1"
@@ -52,12 +45,12 @@
             </el-tooltip>
             <el-form-item>
               <div class="captcha-wrapper">
-                <el-input v-model="loginForm.verifyCode" placeholder="验证码" class="captcha-input" />
+                <el-input v-model="loginForm.verifyCode" :placeholder="$t('login.verificationCode')" class="captcha-input" />
                 <img src="http://192.168.16.102:27081/cms/user/createRandomCode?1570849306218" alt="captcha">
               </div>
             </el-form-item>
             <el-form-item>
-              <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
+              <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -71,9 +64,13 @@
 </template>
 
 <script>
-
+import { mapState } from 'vuex'
+import LangSelect from '@/components/LangSelect'
 export default {
   name: 'Login',
+  components: {
+    LangSelect
+  },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (value.length === 0) {
@@ -119,6 +116,11 @@ export default {
       },
       immediate: true
     }
+  },
+  computed: {
+    ...mapState({
+      showGlobal: state => state.settings.showGlobal
+    })
   },
   created() {
     // window.addEventListener('storage', this.afterQRScan)
@@ -209,15 +211,19 @@ $bg:#283443;
 $light_gray:#fff;
 $cursor: #fff;
 .login-container {
+  height:100%;
   .page-header {
     width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    line-height: 60px;
+    height:10%!important;
     img {
       height: 50%;
       margin-top: 15px;
+    }
+    p{
+      line-height:60px;
     }
     /*.logo-wrapper {*/
     /*  display: flex;*/
@@ -233,57 +239,59 @@ $cursor: #fff;
     /*}*/
   }
   .page-content {
+    height: 80%;
     background: url("../../assets/images/bg.jpg") no-repeat;
+    background-size:100% 100%;
+    padding-top:5%!important;
     .content-wrapper {
       position: relative;
-      max-width: 640px;
+      width:40%;
+      height: 370px;
       background: #ffffff;
-      margin: 8% auto;
+      margin: 0 auto;
       overflow: hidden;
-      .content-left {
-        padding: 50px;
-        img {
-          width: 200px;
-          margin-left: 30px;
-        }
-      }
-      .content-right {
-        padding: 30px 20px;
-        border-left: 1.5px solid #e5e5e5;
-        .login-form {
-          .title-container {
-            position: relative;
+      border-radius:10px 10px;
 
-            .title {
-              font-size: 26px;
-              color: #000000;
-              margin: 0px auto 20px auto;
-              text-align: center;
-              font-weight: bold;
-            }
-          }
-          .el-input__prefix {
-            img {
-              width: 42%;
-              margin: 8px;
-            }
-          }
-          .captcha-wrapper {
-            display: flex;
-            justify-content: space-between;
-            .captcha-input {
-              width: 55%;
-            }
-            img {
-              height: 35px;
-              max-width: 45%;
-            }
-          }
-        }
+      .login-form {
+      .title-container {
+        position: relative;
+
+      .title {
+        font-size: 26px;
+        color: #000;
+        text-align: center;
+        font-weight: bold;
+        line-height:40px;
+      }
+      .set-language {
+        color: #c5c3c3;
+        position: absolute;
+        top: 10px;
+        right: 0;
+      }
+      }
+      .el-input__prefix {
+      img {
+        width: 42%;
+        margin: 8px;
+      }
+      }
+      .captcha-wrapper {
+        display: flex;
+        justify-content: space-between;
+      .captcha-input {
+        width: 55%;
+      }
+      img {
+        height: 35px;
+        max-width: 45%;
+      }
+      }
       }
     }
   }
   .page-footer {
+    height:10%!important;
     p {
       text-align: center;
       line-height: 60px;
